@@ -4,7 +4,7 @@
 sudo pacman -Syyu
 
 # Installing gaming package from CachyOS
-ensure_installed pacman cachyos-gaming-meta python-pynvim  xclip xsel  wl-clipboard appmenu-gtk-module libdbusmenu-glib qt5ct wget unzip gum rsync git curl realtime-privileges
+ensure_installed pacman lenovolegionlinux cachyos-gaming-meta python-pynvim  xclip xsel  wl-clipboard appmenu-gtk-module libdbusmenu-glib qt5ct wget unzip gum rsync git curl realtime-privileges libvoikko hspell nuspell hunspell aspell
 ensure_installed pacman ttf-fantasque-nerd  ttf-font-awesome otf-font-awesome noto-fonts-emoji noto-fonts awesome-terminal-fonts ttf-fira-sans ttf-hack
 
 # Check user is in realtime group
@@ -17,7 +17,7 @@ else
 fi
 
 # Installing VSCode
-ensure_installed paru visual-studio-code-bin
+ensure_installed paru visual-studio-code-bin ryzenadj
 
 
 # Update HandleLidSwitch to ignore in logind.conf
@@ -37,7 +37,7 @@ else
 
     echo "HandleLidSwitch is now set to ignore."
     echo "Restarting systemd-logind service..."
-    sudo systemctl restart systemd-logind
+    #sudo systemctl restart systemd-logind
 fi
 
 # Check if rfkill-unblock@all systemd service is enabled or not

@@ -65,11 +65,4 @@ EOF
 echo "Setting executable permission for $SCRIPT_PATH..."
 chmod +x "$SCRIPT_PATH"
 
-# Add the bin directory to the PATH if not already present
-if [[ ":$PATH:" != *":$BIN_DIR:"* ]]; then
-    echo "Adding $BIN_DIR to PATH in ~/.zshrc..."
-    echo "export PATH=\"$BIN_DIR:\$PATH\"" >> ~/.zshrc
-    source ~/.zshrc
-fi
-
 echo "The link_files script is ready and available as a system-wide command."

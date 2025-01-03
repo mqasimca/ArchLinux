@@ -19,6 +19,10 @@ else
     echo "NVIDIA persistence daemon started and enabled."
 fi
 
+# Nvidia increase power limit
+ensure_installed pacman acpi_call-dkms
+sudo systemctl mask nvidia-powerd.service
+
 # Link NVIDIA modprobe configuration files
 link_files /usr/lib/modprobe.d /etc/modprobe.d "nvidia*.conf"
 
