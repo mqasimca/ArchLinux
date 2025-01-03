@@ -4,7 +4,7 @@
 sudo pacman -Syyu
 
 # Installing gaming package from CachyOS
-ensure_installed pacman lenovolegionlinux cachyos-gaming-meta python-pynvim  xclip xsel  wl-clipboard appmenu-gtk-module libdbusmenu-glib qt5ct wget unzip gum rsync git curl realtime-privileges libvoikko hspell nuspell hunspell aspell
+ensure_installed pacman nodejs lenovolegionlinux cachyos-gaming-meta python-pynvim  xclip xsel  wl-clipboard appmenu-gtk-module libdbusmenu-glib qt5ct wget unzip gum rsync git curl realtime-privileges libvoikko hspell nuspell hunspell aspell
 ensure_installed pacman ttf-fantasque-nerd  ttf-font-awesome otf-font-awesome noto-fonts-emoji noto-fonts awesome-terminal-fonts ttf-fira-sans ttf-hack
 
 # Check user is in realtime group

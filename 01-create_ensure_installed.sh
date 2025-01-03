@@ -20,21 +20,28 @@ ensure_installed() {
     local manager=$1
     shift
     local packages=("$@")
+    local to_install=()
 
     case "$manager" in
         pacman)
             for package in "${packages[@]}"; do
                 if ! pacman -Qi "$package" &> /dev/null; then
-                    echo "Installing $package using pacman..."
-                    sudo pacman -S "$package" || {
-                        echo "Failed to install $package using pacman. Please check the package name or your internet connection."
-                        exit 1
-                    }
-                    echo "$package installed successfully via pacman."
+                    to_install+=("$package")
                 else
                     echo "$package is already installed via pacman."
                 fi
             done
+
+            if [ "${#to_install[@]}" -ne 0 ]; then
+                echo "Installing packages: ${to_install[*]} using pacman..."
+                sudo pacman -S "${to_install[@]}" || {
+                    echo "Failed to install packages using pacman. Please check the package names or your internet connection."
+                    exit 1
+                }
+                echo "Packages installed successfully via pacman."
+            else
+                echo "All packages are already installed."
+            fi
             ;;
         paru)
             if ! command -v paru &> /dev/null; then
@@ -43,16 +50,22 @@ ensure_installed() {
             fi
             for package in "${packages[@]}"; do
                 if ! paru -Qi "$package" &> /dev/null; then
-                    echo "Installing $package using paru..."
-                    paru -S "$package" || {
-                        echo "Failed to install $package using paru. Please check the package name or your internet connection."
-                        exit 1
-                    }
-                    echo "$package installed successfully via paru."
+                    to_install+=("$package")
                 else
                     echo "$package is already installed via paru."
                 fi
             done
+
+            if [ "${#to_install[@]}" -ne 0 ]; then
+                echo "Installing packages: ${to_install[*]} using paru..."
+                paru -S "${to_install[@]}" || {
+                    echo "Failed to install packages using paru. Please check the package names or your internet connection."
+                    exit 1
+                }
+                echo "Packages installed successfully via paru."
+            else
+                echo "All packages are already installed."
+            fi
             ;;
         *)
             echo "Invalid package manager specified. Use 'pacman' or 'paru'."
@@ -81,7 +94,7 @@ chmod +x "$SCRIPT_PATH"
 # Add the bin directory to the PATH if not already present
 if [[ ":$PATH:" != *":$BIN_DIR:"* ]]; then
     echo "Adding $BIN_DIR to PATH in ~/.zshrc..."
-    echo "export PATH=\"$HOME/bin:\$PATH\"" >> ~/.zshrc
+    echo "export PATH=\"\$HOME/bin:\$PATH\"" >> ~/.zshrc
 fi
 
 echo "The ensure_installed script is ready and available as a system-wide command."
